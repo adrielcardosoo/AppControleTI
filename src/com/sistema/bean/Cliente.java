@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package appcontroleti;
+package com.sistema.bean;
 
 /**
  *
  * @author comp1
  */
 public class Cliente {
-    int codigo;
+    public int codigo;
     String nome;
     String endereco;
     String bairro;
     String cidade;
     String estado;
     
-    Cliente () {
+    public Cliente () {
         setCodigo(0);
         setNome("");
         setEndereco("");
