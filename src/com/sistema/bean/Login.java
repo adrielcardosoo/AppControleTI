@@ -10,12 +10,12 @@ package com.sistema.bean;
  * @author comp1
  */
 public class Login {
-    int codigo;
+    public int codigo;
     String nome;
     String login;
     String senha;
     
-    Login() {
+    public Login() {
         setCodigo(0);
         setNome("");
         setLogin("");

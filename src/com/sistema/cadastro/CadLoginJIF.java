@@ -5,7 +5,10 @@
  */
 package com.sistema.cadastro;
 
+import com.sistema.bean.Login;
+import com.sistema.master.AppControleTI;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,13 +34,13 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jTFLogin = new javax.swing.JTextField();
+        jPFSenha = new javax.swing.JPasswordField();
         jbCadastrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTFCodigo = new javax.swing.JTextField();
         jBExcluir = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
+        jTFNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
@@ -48,6 +51,11 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
         jLabel2.setText("Senha:");
 
         jbCadastrar.setText("Cadastrar");
+        jbCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCadastrarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Código:");
 
@@ -58,9 +66,9 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jTFNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jTFNomeActionPerformed(evt);
             }
         });
 
@@ -76,7 +84,7 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(3, 3, 3)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jbCadastrar)
@@ -86,15 +94,15 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(9, 9, 9)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(11, 11, 11)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel2)
                                 .addGap(6, 6, 6)
-                                .addComponent(jPasswordField1)))))
+                                .addComponent(jPFSenha)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -103,17 +111,17 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbCadastrar)
@@ -128,10 +136,36 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBExcluirActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTFNomeActionPerformed
 
+    private void jbCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadastrarActionPerformed
+      boolean JaCadastrado = false;
+
+        String cod = jTFCodigo.getText();
+        for (int i=1; i<=AppControleTI.tlogins; i++){
+            if (cod.equals(AppControleTI.login[i].codigo)){
+                JaCadastrado = true;
+            }
+            
+            if (JaCadastrado){
+                JOptionPane.showMessageDialog(null, "Codigo do Login já cadastrado!");
+                break;
+            }
+        }
+
+        inserirLogin( AppControleTI.tlogins++ );
+    }//GEN-LAST:event_jbCadastrarActionPerformed
+
+    private void inserirLogin( Integer linha ){
+        AppControleTI.login[linha] = new Login(); 
+        AppControleTI.login[linha].setCodigo(( Integer.valueOf(jTFCodigo.getText() )));
+        AppControleTI.login[linha].setNome( jTFNome.getText() );
+        AppControleTI.login[linha].setLogin( jTFLogin.getText() );
+        AppControleTI.login[linha].setSenha( String.valueOf( jPFSenha.getPassword() ) );
+    }
+    
      public void setPosicao() {
             Dimension d = this.getDesktopPane().getSize();
             this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
@@ -143,10 +177,10 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPasswordField jPFSenha;
+    private javax.swing.JTextField jTFCodigo;
+    private javax.swing.JTextField jTFLogin;
+    private javax.swing.JTextField jTFNome;
     private javax.swing.JButton jbCadastrar;
     // End of variables declaration//GEN-END:variables
 }

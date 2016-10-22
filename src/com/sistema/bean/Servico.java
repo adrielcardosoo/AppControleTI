@@ -10,12 +10,12 @@ package com.sistema.bean;
  * @author comp1
  */
 public class Servico {
-    int codigo;
+    public int codigo;
     String descricao;
     double valor;
     double tempoMedio;
     
-    Servico() {
+    public Servico() {
         setCodigo(0);
         setDescricao("");
         setValor(0.00);
