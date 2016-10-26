@@ -7,6 +7,9 @@ package com.sistema.cadastro;
 
 import com.sistema.bean.Servico;
 import com.sistema.master.AppControleTI;
+import com.sistema.controle.UltimoUsuarioLogin;
+import com.sistema.controle.Log;
+import com.sistema.controle.CadServicoListener;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
@@ -16,11 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class CadServicoJIF extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form CadServicoJIF
-     */
+    UltimoUsuarioLogin ultimoLogin = new UltimoUsuarioLogin();
+    Log log;
+
+    public CadServicoListener listener = new CadServicoListener(this);
+    
     public CadServicoJIF() {
         initComponents();
+        
+        log = new Log("Usuario " + ultimoLogin.lerArquivo() + " acessou o Cadastro de Serviços em ");
     }
 
     /**
@@ -73,6 +80,8 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
         });
 
         jBCadastrar.setText("Cadastrar");
+        jBCadastrar.setActionCommand("Cadastrar");
+        jBCadastrar.addActionListener(listener);
         jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCadastrarActionPerformed(evt);
@@ -80,6 +89,8 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
         });
 
         jBExcluir.setText("Excluir");
+        jBExcluir.setActionCommand("Excluir");
+        jBExcluir.addActionListener(listener);
         jBExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBExcluirActionPerformed(evt);
@@ -161,24 +172,10 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-      boolean JaCadastrado = false;
-
-        String cod = jTFCodigo.getText();
-        for (int i=1; i<=AppControleTI.tservico; i++){
-            if (cod.equals(AppControleTI.servico[i].codigo)){
-                JaCadastrado = true;
-            }
-            
-            if (JaCadastrado){
-                JOptionPane.showMessageDialog(null, "Codigo do Serviço já cadastrado!");
-                break;
-            }
-        }
-
-        inserirLogin( AppControleTI.tservico++ );
+      
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
-    private void inserirLogin( Integer linha ){
+    public void inserirLogin( Integer linha ){
         AppControleTI.servico[linha] = new Servico();
         AppControleTI.servico[linha].setCodigo(( Integer.valueOf(jTFCodigo.getText())));
         AppControleTI.servico[linha].setDescricao(jTFDescricao.getText());
@@ -189,6 +186,15 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
     public void setPosicao() {
             Dimension d = this.getDesktopPane().getSize();
             this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
+    }
+    
+    public String getCod() {
+        String conteudo = jTFCodigo.getText();
+        if(conteudo.length() != 0 || conteudo != null ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -203,4 +209,11 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTFTempo;
     private javax.swing.JTextField jTFValor;
     // End of variables declaration//GEN-END:variables
+
+    public void LimpaForm() {
+        jTFDescricao.setText(" ");
+        jTFCodigo.setText(" ");
+        jTFTempo.setText(" ");
+        jTFValor.setText(" ");
+    }
 }

@@ -5,6 +5,8 @@
  */
 package com.sistema.master;
 
+import com.sistema.controle.UltimoUsuarioLogin;
+import com.sistema.controle.Log;
 import java.awt.Dimension;
 
 /**
@@ -13,11 +15,13 @@ import java.awt.Dimension;
  */
 public class SobreJIF extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form SobreJIF
-     */
+    UltimoUsuarioLogin ultimoLogin = new UltimoUsuarioLogin();
+    Log log;
+
     public SobreJIF() {
         initComponents();
+        
+         log = new Log("Usuario " + ultimoLogin.lerArquivo() + " acessou o Sobre o Sistema em ");
     }
 
     /**

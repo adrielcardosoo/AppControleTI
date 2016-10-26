@@ -7,6 +7,9 @@ package com.sistema.cadastro;
 
 import com.sistema.bean.Cliente;
 import com.sistema.master.AppControleTI;
+import com.sistema.controle.UltimoUsuarioLogin;
+import com.sistema.controle.Log;
+import com.sistema.controle.CadClienteListener;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
@@ -16,11 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class CadClienteJIF extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form LoginJIF
-     */
+    UltimoUsuarioLogin ultimoLogin = new UltimoUsuarioLogin();
+    Log log;
+
+    public CadClienteListener listener = new CadClienteListener(this);
+    
     public CadClienteJIF() {
         initComponents();
+        
+        log = new Log("Usuario " + ultimoLogin.lerArquivo() + " acessou o Cadastro de Cliente em ");
     }
 
     /**
@@ -63,8 +70,17 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
         jLabel6.setText("Estado:");
 
         jBExcluir.setText("Excluir");
+        jBExcluir.setActionCommand("Excluir");
+        jBExcluir.addActionListener(listener);
+        jBExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExcluirActionPerformed(evt);
+            }
+        });
 
         jBCadastrar.setText("Cadastrar");
+        jBCadastrar.setActionCommand("Cadastrar");
+        jBCadastrar.addActionListener(listener);
         jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCadastrarActionPerformed(evt);
@@ -139,24 +155,14 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed
-        boolean JaCadastrado = false;
-
-        String cod = jTFCodigo.getText();
-        for (int i=1; i<=AppControleTI.tcliente; i++){
-            if (cod.equals(AppControleTI.cliente[i].codigo)){
-                JaCadastrado = true;
-            }
-            
-            if (JaCadastrado){
-                JOptionPane.showMessageDialog(null, "Codigo do Cliente já cadastrado!");
-                break;
-            }
-        }
-
-        inserirCliente( AppControleTI.tcliente++ );
+        
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
-    private void inserirCliente( Integer linha ){
+    private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBExcluirActionPerformed
+
+    public void inserirCliente( Integer linha ){
         AppControleTI.cliente[linha] = new Cliente(); 
         AppControleTI.cliente[linha].setCodigo(( Integer.valueOf(jTFCodigo.getText() )));
         AppControleTI.cliente[linha].setNome( jTFNome.getText() );
@@ -169,6 +175,15 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
     public void setPosicao() {
             Dimension d = this.getDesktopPane().getSize();
             this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
+    }
+    
+    public String getCod() {
+        String conteudo = jTFCodigo.getText();
+        if(conteudo.length() != 0 || conteudo != null ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -187,4 +202,14 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTFEstado;
     private javax.swing.JTextField jTFNome;
     // End of variables declaration//GEN-END:variables
+    
+    public void LimpaForm() {
+        jTFNome.setText(" ");
+        jTFCodigo.setText(" ");
+        jTFBairro.setText(" ");
+        jTFCidade.setText(" ");
+        jTFEndereco.setText(" ");
+        jTFEstado.setText(" ");
+    }
+    
 }

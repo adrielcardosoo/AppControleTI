@@ -143,6 +143,12 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBExcluirActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jBExcluir.setActionCommand(&quot;Excluir&quot;);&#xa;jBExcluir.addActionListener(listener);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jBCadastrar">
       <Properties>
@@ -151,6 +157,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBCadastrarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jBCadastrar.setActionCommand(&quot;Cadastrar&quot;);&#xa;jBCadastrar.addActionListener(listener);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
