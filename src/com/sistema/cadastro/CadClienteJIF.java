@@ -11,6 +11,7 @@ import com.sistema.controle.UltimoUsuarioLogin;
 import com.sistema.controle.Log;
 import com.sistema.controle.CadClienteListener;
 import java.awt.Dimension;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**

@@ -22,13 +22,12 @@ public class UltimoUsuarioLogin {
             bufferedWriter.close();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro : " + e, "Erro ", JOptionPane.ERROR_MESSAGE);
-            //falta criar o arquivo log para mandar as 
-            //informacoes se esta gravando ou nao o ultimo usuario
         }
     }
 
     // lendo o arquivo e setando no campo de login do usuario
     public String lerArquivo() {
+        FileWriter fileWriter = null;
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
         try {
@@ -40,7 +39,11 @@ public class UltimoUsuarioLogin {
             }
             return sb.toString();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Erro : " + e, "Erro ", JOptionPane.ERROR_MESSAGE);
+            if (fileReader == null){
+                UltimoUsuarioLogin("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro : " + e, "Erro ", JOptionPane.ERROR_MESSAGE);
+            }
         }
         if (fileReader != null) {
             try {
