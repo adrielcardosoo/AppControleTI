@@ -54,11 +54,18 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
         jTFEstado = new javax.swing.JTextField();
         jBExcluir = new javax.swing.JButton();
         jBCadastrar = new javax.swing.JButton();
+        jBPesquisar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastro de Clientes");
 
         jLabel1.setText("Código:");
+
+        jTFCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFCodigoFocusLost(evt);
+            }
+        });
 
         jLabel2.setText("Nome:");
 
@@ -88,6 +95,15 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jBPesquisar.setText("Pesquisar");
+        jBPesquisar.setActionCommand("Pesquisar");
+        jBPesquisar.addActionListener(listener);
+        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,7 +117,10 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBPesquisar))
                     .addComponent(jTFNome)
                     .addComponent(jTFEndereco)
                     .addGroup(layout.createSequentialGroup()
@@ -128,8 +147,9 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -163,6 +183,14 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBExcluirActionPerformed
 
+    private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCodigoFocusLost
+       
+    }//GEN-LAST:event_jTFCodigoFocusLost
+
+    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+
+    }//GEN-LAST:event_jBPesquisarActionPerformed
+
     public void inserirCliente( Integer linha ){
         AppControleTI.cliente[linha] = new Cliente(); 
         AppControleTI.cliente[linha].setCodigo(( Integer.valueOf(jTFCodigo.getText() )));
@@ -190,6 +218,7 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBExcluir;
+    private javax.swing.JButton jBPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -213,4 +242,11 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
         jTFEstado.setText(" ");
     }
     
+    public void SetConsulta( String asNome, String asBairro, String asCidade, String asEndereco, String asEstado ) {
+        jTFNome.setText(asNome);
+        jTFBairro.setText(asBairro);
+        jTFCidade.setText(asCidade);
+        jTFEndereco.setText(asEndereco);
+        jTFEstado.setText(asEstado);
+    }
 }

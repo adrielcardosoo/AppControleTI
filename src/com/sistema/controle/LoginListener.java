@@ -1,6 +1,7 @@
 package com.sistema.controle;
 
 import com.sistema.bean.Login;
+import com.sistema.master.AppControleTI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.sistema.master.TelaLogin;
@@ -33,11 +34,20 @@ public class LoginListener implements ActionListener {
         } else if (senha.length() == 0) {
             throw new Exceptions("Informe a SENHA!");
         } else {
+            int linha;
             boolean condicao = false;
             
-           if ((login.equals("admin")) && senha.equals("admin")) {
+            if ( AppControleTI.tlogins > 0 ) {
+                for ( linha = 1; linha <= AppControleTI.tlogins; linha++ ){
+                    if (login.equals(AppControleTI.login[linha].getLogin()) && ( senha.equals(AppControleTI.login[linha].getSenha()))){
+                        condicao = true;
+                    }
+                }
+            }
+                    
+            if ( condicao == false && (login.equals("admin")) && senha.equals("admin")) {
                condicao = true;
-           }
+            }
             
             if(condicao){ 
                 ultimoLogin.UltimoUsuarioLogin(frame.getUsuario());
@@ -48,7 +58,7 @@ public class LoginListener implements ActionListener {
                 telaPrincipal.setExtendedState( MAXIMIZED_BOTH );
                 telaPrincipal.setVisible( true );
             }else{
-                JOptionPane.showMessageDialog(null, "Usuario e/ou Senha Invalido(s)!", "Atenção", JOptionPane.ERROR_MESSAGE);
+                throw new Exceptions("Usuario e/ou Senha Invalido(s)!");
             }
            
         }

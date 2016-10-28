@@ -13,6 +13,10 @@ public class TelaLogin extends javax.swing.JFrame {
         String login = ultimoLogin.lerArquivo();
         jTFLogin.setText(login);
         jTFSenha.transferFocus();
+        
+        if ( ( login != "") && ( login != null ) ){
+           jTFSenha.requestFocus();
+        }
     }
 
     /**

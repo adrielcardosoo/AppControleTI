@@ -1,5 +1,6 @@
 package com.sistema.controle;
 
+import com.sistema.bean.Servico;
 import com.sistema.cadastro.CadServicoJIF;
 import com.sistema.master.AppControleTI;
 import java.awt.event.ActionEvent;
@@ -42,7 +43,7 @@ public class CadServicoListener implements ActionListener {
 
             frame.inserirLogin( AppControleTI.tservico++ );
             
-            log = new Log(ultimoLogin.lerArquivo() + "Cadastrou um serviço");
+            log = new Log(ultimoLogin.lerArquivo() + " Cadastrou um serviço");
             frame.LimpaForm();
         }
         
@@ -53,8 +54,36 @@ public class CadServicoListener implements ActionListener {
             } else {
                 log = new Log(ultimoLogin.lerArquivo() + " Excluiu um serviço");
             }
+            
+        if ("Pesquisar".equals(evento.getActionCommand())){
+            procuraElemento( Integer.parseInt( frame.getCod() ) );
+        }
 
         }
+    }
+    
+    private void removeItem(Servico[] array) {
+        AppControleTI.servico = pegaNovoArray(array, array.length);
+    }
+    
+    private Servico[] pegaNovoArray(Servico[] array, int tamanho) {
+        Servico[] novoArray = new Servico[tamanho - 1];
+        int j = 0;
+        for(int i = 0; i < tamanho; i++) {
+            if(array[i].getCodigo() != Integer.parseInt( frame.getCod() ) ) {
+                novoArray[j] = array[i];
+                ++j;
+            }
+        }
+        return novoArray;
+    }
+    
+    public void procuraElemento(int elemento){
+        for( int i = 0; i < AppControleTI.servico.length;  i++ ){
+            if( AppControleTI.servico[i].getCodigo() == elemento ){
+                frame.SetConsulta(AppControleTI.servico[i].getDescricao(), String.valueOf(AppControleTI.servico[i].getTempoMedio()), String.valueOf(AppControleTI.servico[i].getValor()) );
+            }
+        }   
     }
 
 }

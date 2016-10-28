@@ -49,6 +49,7 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
         jBExcluir = new javax.swing.JButton();
         jTFNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jBPesquisar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastro de Acesso ao Sistema");
@@ -81,6 +82,15 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Nome:");
 
+        jBPesquisar.setText("Pesquisar");
+        jBPesquisar.setActionCommand("Pesquisar");
+        jBPesquisar.addActionListener(listener);
+        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBPesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,7 +101,9 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(3, 3, 3)
-                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBPesquisar))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jBCadastrar)
@@ -115,11 +127,13 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,6 +170,10 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
       
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
+    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+
+    }//GEN-LAST:event_jBPesquisarActionPerformed
+
     public void inserirLogin( Integer linha ){
         AppControleTI.login[linha] = new Login(); 
         AppControleTI.login[linha].setCodigo(( Integer.valueOf(jTFCodigo.getText() )));
@@ -181,6 +199,7 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBExcluir;
+    private javax.swing.JButton jBPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -192,9 +211,15 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
     
     public void LimpaForm() {
-        jTFNome.setText(" ");
-        jTFCodigo.setText(" ");
-        jPFSenha.setText(" ");
-        jTFLogin.setText(" ");
+        jTFNome.setText("");
+        jTFCodigo.setText("");
+        jPFSenha.setText("");
+        jTFLogin.setText("");
+    }
+    
+    public void SetConsulta( String asNome, String asSenha, String asLogin ) {
+        jTFNome.setText(asNome);
+        jPFSenha.setText(asSenha);
+        jTFLogin.setText(asLogin);
     }
 }
