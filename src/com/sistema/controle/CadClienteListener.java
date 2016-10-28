@@ -30,7 +30,7 @@ public class CadClienteListener implements ActionListener {
             }
             
             for (int i=1; i<=AppControleTI.tcliente; i++){
-                if (cod.equals(AppControleTI.cliente[i].codigo)){
+                if (cod.equals(AppControleTI.cliente[i].getCodigo())){
                     JaCadastrado = true;
                 }
 

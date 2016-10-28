@@ -5,3 +5,6 @@ Usuario admin acessou o Cadastro de Serviços em 26/10/2016 - 21:17
 Usuario admin acessou o Cadastro de Serviços em 27/10/2016 - 18:51
 Usuario admin acessou o Sobre o Sistema em 27/10/2016 - 18:57
 Usuario admin acessou o Sobre o Sistema em 27/10/2016 - 18:59
+Usuario admin acessou o Cadastro de Cliente em 27/10/2016 - 22:46
+Usuario admin acessou o Cadastro de Acessos em 27/10/2016 - 22:47
+admin Excluiu um usuario de acesso27/10/2016 - 22:47

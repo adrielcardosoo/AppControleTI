@@ -10,12 +10,12 @@ package com.sistema.bean;
  * @author comp1
  */
 public class Cliente {
-    public int codigo;
-    String nome;
-    String endereco;
-    String bairro;
-    String cidade;
-    String estado;
+    private int codigo;
+    private String nome;
+    private String endereco;
+    private String bairro;
+    private String cidade;
+    private String estado;
     
     public Cliente () {
         setCodigo(0);
