@@ -80,7 +80,7 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jBCadastrar.setText("Cadastrar");
+        jBCadastrar.setText("Gravar");
         jBCadastrar.setActionCommand("Cadastrar");
         jBCadastrar.addActionListener(listener);
         jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +115,7 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBCadastrar)
+                        .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()

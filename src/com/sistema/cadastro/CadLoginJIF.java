@@ -10,7 +10,11 @@ import com.sistema.master.AppControleTI;
 import com.sistema.controle.UltimoUsuarioLogin;
 import com.sistema.controle.Log;
 import com.sistema.controle.CadLoginListener;
+import com.sistema.controle.Exceptions;
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.DocFlavor;
 import javax.swing.JOptionPane;
 
 /**
@@ -49,7 +53,6 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
         jBExcluir = new javax.swing.JButton();
         jTFNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jBPesquisar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastro de Acesso ao Sistema");
@@ -58,7 +61,7 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Senha:");
 
-        jBCadastrar.setText("Cadastrar");
+        jBCadastrar.setText("Gravar");
         jBCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBCadastrarActionPerformed(evt);
@@ -66,6 +69,17 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setText("Código:");
+
+        jTFCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFCodigoFocusLost(evt);
+            }
+        });
+        jTFCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFCodigoActionPerformed(evt);
+            }
+        });
 
         jBExcluir.setText("Excluir");
         jBExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -82,15 +96,6 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Nome:");
 
-        jBPesquisar.setText("Pesquisar");
-        jBPesquisar.setActionCommand("Pesquisar");
-        jBPesquisar.addActionListener(listener);
-        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBPesquisarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,27 +106,24 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(3, 3, 3)
-                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBPesquisar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jBCadastrar)
-                            .addGap(10, 10, 10)
+                            .addComponent(jBCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jBExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(9, 9, 9)
-                                .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(11, 11, 11)
-                                .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addGap(6, 6, 6)
-                                .addComponent(jPFSenha)))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(9, 9, 9)
+                            .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(11, 11, 11)
+                            .addComponent(jTFLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel2)
+                            .addGap(6, 6, 6)
+                            .addComponent(jPFSenha))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -130,10 +132,8 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jBPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(8, 8, 8)
+                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,9 +144,9 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPFSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBCadastrar)
-                    .addComponent(jBExcluir))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBExcluir)
+                    .addComponent(jBCadastrar))
                 .addContainerGap())
         );
 
@@ -170,9 +170,28 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
       
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
-    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
+    private void jTFCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFCodigoActionPerformed
 
-    }//GEN-LAST:event_jBPesquisarActionPerformed
+    private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCodigoFocusLost
+        try {
+            Login login;
+            
+            login = listener.procuraElemento();
+            if ( login != null ){
+                jTFNome.setText( login.getNome() );
+                jTFLogin.setText( login.getLogin() );
+                jPFSenha.setText( login.getSenha() );
+            }else{
+               jTFNome.setText("");
+               jPFSenha.setText("");
+               jTFLogin.setText("");
+            }
+        } catch (Exceptions ex) {
+            Logger.getLogger(CadLoginJIF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTFCodigoFocusLost
 
     public void inserirLogin( Integer linha ){
         AppControleTI.login[linha] = new Login(); 
@@ -196,10 +215,52 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
         }
     }
 
+     public void setCod(String dados , CadLoginJIF stance) {
+         stance.jTFCodigo.setText(dados);
+    }
+     
+     public String getNome() {
+        String conteudo = jTFNome.getText();
+        if(conteudo.length() != 0 || conteudo != null ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+
+     public void setNome(String dados , CadLoginJIF stance) {
+         stance.jTFNome.setText(dados);
+    }
+     
+     public String getLogin() {
+        String conteudo = jTFLogin.getText();
+        if(conteudo.length() != 0 || conteudo != null ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+
+     public void setLogin(String dados , CadLoginJIF stance) {
+         stance.jTFLogin.setText(dados);
+    }
+     
+     public String getSenha() {
+        String conteudo = String.valueOf(jPFSenha.getPassword());
+        if(conteudo.length() != 0 || conteudo != null ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+
+     public void setSenha(String dados , CadLoginJIF stance) {
+         stance.jPFSenha.setText(dados);
+    }
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBExcluir;
-    private javax.swing.JButton jBPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

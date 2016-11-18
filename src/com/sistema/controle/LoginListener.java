@@ -1,6 +1,7 @@
 package com.sistema.controle;
 
 import com.sistema.bean.Login;
+import com.sistema.dao.CadLoginDao;
 import com.sistema.master.AppControleTI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +35,7 @@ public class LoginListener implements ActionListener {
         } else if (senha.length() == 0) {
             throw new Exceptions("Informe a SENHA!");
         } else {
-            int linha;
+            /*int linha;
             boolean condicao = false;
             
             if ( AppControleTI.tlogins > 0 ) {
@@ -53,6 +54,18 @@ public class LoginListener implements ActionListener {
                 ultimoLogin.UltimoUsuarioLogin(frame.getUsuario());
                 frame.dispose();
 
+                TelaPrincipal telaPrincipal = new TelaPrincipal();
+
+                telaPrincipal.setExtendedState( MAXIMIZED_BOTH );
+                telaPrincipal.setVisible( true );
+            }else{*/
+
+            CadLoginDao validaBanco = new CadLoginDao();
+            boolean condicao = validaBanco.exists(Login);
+            if(condicao == true){
+                ultimoLogin.UltimoUsuarioLogin(frame.getUsuario());
+                frame.dispose();
+                
                 TelaPrincipal telaPrincipal = new TelaPrincipal();
 
                 telaPrincipal.setExtendedState( MAXIMIZED_BOTH );
