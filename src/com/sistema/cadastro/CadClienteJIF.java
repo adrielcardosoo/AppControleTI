@@ -10,8 +10,11 @@ import com.sistema.master.AppControleTI;
 import com.sistema.controle.UltimoUsuarioLogin;
 import com.sistema.controle.Log;
 import com.sistema.controle.CadClienteListener;
+import com.sistema.controle.Exceptions;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -54,7 +57,6 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
         jTFEstado = new javax.swing.JTextField();
         jBExcluir = new javax.swing.JButton();
         jBCadastrar = new javax.swing.JButton();
-        jBPesquisar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastro de Clientes");
@@ -95,15 +97,6 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jBPesquisar.setText("Pesquisar");
-        jBPesquisar.setActionCommand("Pesquisar");
-        jBPesquisar.addActionListener(listener);
-        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBPesquisarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,10 +110,7 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBPesquisar))
+                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFNome)
                     .addComponent(jTFEndereco)
                     .addGroup(layout.createSequentialGroup()
@@ -147,9 +137,8 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTFNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -169,7 +158,7 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBExcluir)
                     .addComponent(jBCadastrar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,12 +173,29 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBExcluirActionPerformed
 
     private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCodigoFocusLost
-       
+        try {
+            Cliente cliente;
+            
+            jTFCodigo.setText( jTFCodigo.getText().trim() );
+            
+            cliente = listener.procuraElemento();
+            if ( cliente != null ){
+                jTFNome.setText( cliente.getNome() );
+                jTFEndereco.setText( cliente.getEndereco() );
+                jTFBairro.setText( cliente.getBairro() );
+                jTFCidade.setText( cliente.getCidade() );
+                jTFEstado.setText( cliente.getEstado() );
+            }else{
+               jTFNome.setText("");
+               jTFEndereco.setText("");
+               jTFBairro.setText("");
+               jTFCidade.setText("");
+               jTFEstado.setText("");
+            }
+        } catch (Exceptions ex) {
+            Logger.getLogger(CadLoginJIF.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jTFCodigoFocusLost
-
-    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-
-    }//GEN-LAST:event_jBPesquisarActionPerformed
 
     public void inserirCliente( Integer linha ){
         AppControleTI.cliente[linha] = new Cliente(); 
@@ -202,8 +208,8 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
     }
     
     public void setPosicao() {
-            Dimension d = this.getDesktopPane().getSize();
-            this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
     }
     
     public String getCod() {
@@ -215,10 +221,78 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
         }
     }
 
+    public void setCod(String dados , CadClienteJIF stance) {
+         stance.jTFCodigo.setText(dados);
+    }
+     
+    public String getNome() {
+        String conteudo = jTFNome.getText();
+        if(conteudo.length() != 0 ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+
+    public void setNome(String dados, CadClienteJIF stance) {
+         stance.jTFNome.setText(dados);
+    }
+    
+    public String getEndereco() {
+        String conteudo = jTFEndereco.getText();
+        if(conteudo.length() != 0 ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+
+    public void setEndereco(String dados, CadClienteJIF stance) {
+         stance.jTFEndereco.setText(dados);
+    }
+    
+    public String getBairro() {
+        String conteudo = jTFBairro.getText();
+        if(conteudo.length() != 0 ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+
+    public void setBairro(String dados, CadClienteJIF stance) {
+         stance.jTFBairro.setText(dados);
+    }
+    
+    public String getCidade() {
+        String conteudo = jTFCidade.getText();
+        if(conteudo.length() != 0 ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+
+    public void setCidade(String dados, CadClienteJIF stance) {
+         stance.jTFCidade.setText(dados);
+    }
+    
+    public String getEstado() {
+        String conteudo = jTFEstado.getText();
+        if(conteudo.length() != 0 ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+
+    public void getEstado(String dados, CadClienteJIF stance) {
+         stance.jTFEstado.setText(dados);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBExcluir;
-    private javax.swing.JButton jBPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -234,12 +308,12 @@ public class CadClienteJIF extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
     
     public void LimpaForm() {
-        jTFNome.setText(" ");
-        jTFCodigo.setText(" ");
-        jTFBairro.setText(" ");
-        jTFCidade.setText(" ");
-        jTFEndereco.setText(" ");
-        jTFEstado.setText(" ");
+        jTFNome.setText("");
+        jTFCodigo.setText("");
+        jTFBairro.setText("");
+        jTFCidade.setText("");
+        jTFEndereco.setText("");
+        jTFEstado.setText("");
     }
     
     public void SetConsulta( String asNome, String asBairro, String asCidade, String asEndereco, String asEstado ) {

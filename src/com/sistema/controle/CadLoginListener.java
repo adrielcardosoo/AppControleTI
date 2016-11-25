@@ -68,7 +68,6 @@ public class CadLoginListener implements ActionListener {
 
             if (frame.getCod().length() == 0 || frame.getCod() == null) {
                 JOptionPane.showMessageDialog(null, "Codigo invalido!");
-                return;
             } else {
                 try {
                     exclui.delete(frame.getCod());

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 public class LogErro {
 
-    DataHora dH = new DataHora();
+    private DataHora dH = new DataHora();
 
     public LogErro(String textoArquivo) {
         FileWriter fileWriter = null;

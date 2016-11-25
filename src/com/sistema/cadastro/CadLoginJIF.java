@@ -178,6 +178,8 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
         try {
             Login login;
             
+            jTFCodigo.setText( jTFCodigo.getText().trim() );
+            
             login = listener.procuraElemento();
             if ( login != null ){
                 jTFNome.setText( login.getNome() );
@@ -192,21 +194,13 @@ public class CadLoginJIF extends javax.swing.JInternalFrame {
             Logger.getLogger(CadLoginJIF.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jTFCodigoFocusLost
-
-    public void inserirLogin( Integer linha ){
-        AppControleTI.login[linha] = new Login(); 
-        AppControleTI.login[linha].setCodigo(( Integer.valueOf(jTFCodigo.getText() )));
-        AppControleTI.login[linha].setNome( jTFNome.getText() );
-        AppControleTI.login[linha].setLogin( jTFLogin.getText() );
-        AppControleTI.login[linha].setSenha( String.valueOf( jPFSenha.getPassword() ) );
-    }
     
      public void setPosicao() {
             Dimension d = this.getDesktopPane().getSize();
             this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2); 
     }
      
-     public String getCod() {
+    public String getCod() {
         String conteudo = jTFCodigo.getText();
         if(conteudo.length() != 0 || conteudo != null ){
             return conteudo;

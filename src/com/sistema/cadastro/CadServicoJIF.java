@@ -10,8 +10,12 @@ import com.sistema.master.AppControleTI;
 import com.sistema.controle.UltimoUsuarioLogin;
 import com.sistema.controle.Log;
 import com.sistema.controle.CadServicoListener;
+import com.sistema.controle.Exceptions;
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import sun.java2d.SurfaceData;
 
 /**
  *
@@ -49,12 +53,17 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
         jTFTempo = new javax.swing.JTextField();
         jBCadastrar = new javax.swing.JButton();
         jBExcluir = new javax.swing.JButton();
-        jBPesquisar = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Cadastro de Serviços");
 
         jLabel3.setText("Código:");
+
+        jTFCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTFCodigoFocusLost(evt);
+            }
+        });
 
         jLabel4.setText("Descrição:");
 
@@ -98,15 +107,6 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
             }
         });
 
-        jBPesquisar.setText("Pesquisar");
-        jBPesquisar.setActionCommand("Pesquisar");
-        jBPesquisar.addActionListener(listener);
-        jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBPesquisarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,10 +126,7 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBPesquisar))
+                            .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTFValor, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
@@ -143,12 +140,11 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
+                    .addComponent(jTFCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTFDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,7 +159,7 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCadastrar)
                     .addComponent(jBExcluir))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -189,9 +185,26 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
       
     }//GEN-LAST:event_jBCadastrarActionPerformed
 
-    private void jBPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPesquisarActionPerformed
-
-    }//GEN-LAST:event_jBPesquisarActionPerformed
+    private void jTFCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTFCodigoFocusLost
+        try {
+            Servico servico;
+            
+            jTFCodigo.setText( jTFCodigo.getText().trim() );
+            
+            servico = listener.procuraElemento();
+            if ( servico != null ){
+                jTFDescricao.setText( servico.getDescricao());
+                jTFValor.setText( String.valueOf( servico.getValor()) );
+                jTFTempo.setText( String.valueOf( servico.getTempoMedio()));
+            }else{
+               jTFDescricao.setText("");
+               jTFValor.setText("");
+               jTFTempo.setText("");
+            }
+        } catch (Exceptions ex) {
+            Logger.getLogger(CadLoginJIF.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTFCodigoFocusLost
 
     public void inserirLogin( Integer linha ){
         AppControleTI.servico[linha] = new Servico();
@@ -214,11 +227,14 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
             return conteudo="";
         }
     }
+    
+    public void setCod(String dados , CadServicoJIF stance) {
+         stance.jTFCodigo.setText(dados);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCadastrar;
     private javax.swing.JButton jBExcluir;
-    private javax.swing.JButton jBPesquisar;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -240,5 +256,50 @@ public class CadServicoJIF extends javax.swing.JInternalFrame {
         jTFDescricao.setText(asDescricao);
         jTFTempo.setText(asTempo);
         jTFValor.setText(asValor);
+    }
+    
+    public String getDescricao() {
+        String conteudo = jTFDescricao.getText();
+        if(conteudo.length() != 0 || conteudo != null ){
+            return conteudo;
+        }else{
+            return conteudo="";
+        }
+    }
+    
+    public void setDescricao(String dados , CadServicoJIF stance) {
+         stance.jTFDescricao.setText(dados);
+    }
+    
+    public Double getValor() {
+        Double conteudo;
+
+        if (jTFValor.getText().length() == 0) {
+            conteudo = 0.00;
+        }else{
+            conteudo = Double.valueOf(jTFValor.getText());   
+        }
+        
+        return conteudo;
+    }
+    
+    public void setValor(Double dados , CadServicoJIF stance) {        
+         stance.jTFValor.setText(String.valueOf(dados));
+    }
+    
+    public Double getTempo() {
+        Double conteudo;
+        
+        if (jTFTempo.getText().length() == 0) {
+            conteudo = 0.00;
+        }else{
+            conteudo = Double.valueOf(jTFTempo.getText());
+        }
+            
+        return conteudo;
+    }
+    
+    public void setTempo(double dados , CadServicoJIF stance) {
+         stance.jTFTempo.setText(String.valueOf(dados));
     }
 }

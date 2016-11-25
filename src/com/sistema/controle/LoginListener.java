@@ -35,31 +35,6 @@ public class LoginListener implements ActionListener {
         } else if (senha.length() == 0) {
             throw new Exceptions("Informe a SENHA!");
         } else {
-            /*int linha;
-            boolean condicao = false;
-            
-            if ( AppControleTI.tlogins > 0 ) {
-                for ( linha = 1; linha <= AppControleTI.tlogins; linha++ ){
-                    if (login.equals(AppControleTI.login[linha].getLogin()) && ( senha.equals(AppControleTI.login[linha].getSenha()))){
-                        condicao = true;
-                    }
-                }
-            }
-                    
-            if ( condicao == false && (login.equals("admin")) && senha.equals("admin")) {
-               condicao = true;
-            }
-            
-            if(condicao){ 
-                ultimoLogin.UltimoUsuarioLogin(frame.getUsuario());
-                frame.dispose();
-
-                TelaPrincipal telaPrincipal = new TelaPrincipal();
-
-                telaPrincipal.setExtendedState( MAXIMIZED_BOTH );
-                telaPrincipal.setVisible( true );
-            }else{*/
-
             CadLoginDao validaBanco = new CadLoginDao();
             boolean condicao = validaBanco.exists(Login);
             if(condicao == true){

@@ -40,11 +40,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jTFCodigo" min="-2" pref="55" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBPesquisar" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jTFCodigo" min="-2" pref="55" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jTFValor" min="-2" pref="55" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
@@ -64,13 +60,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+              <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jTFCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBPesquisar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jTFDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -89,7 +84,7 @@
                   <Component id="jBCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,6 +96,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTFCodigo">
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTFCodigoFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -152,17 +150,6 @@
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jBExcluir.setActionCommand(&quot;Excluir&quot;);&#xa;jBExcluir.addActionListener(listener);"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="jBPesquisar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Pesquisar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBPesquisarActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jBPesquisar.setActionCommand(&quot;Pesquisar&quot;); &#xa;jBPesquisar.addActionListener(listener);"/>
       </AuxValues>
     </Component>
   </SubComponents>

@@ -1,28 +1,25 @@
 package com.sistema.controle;
 
-/*import br.imp.modelo.CadProdutoModelo;
-import br.imp.modelo.CadastroClienteModelo;
-import br.imp.visao.CadastroClienteJIF;
+import com.sistema.bean.Cliente;
+import com.sistema.cadastro.CadClienteJIF;
 
 public class CadClienteControle {
     
-  private CadastroClienteModelo cadModelo = new CadastroClienteModelo();
+  private Cliente cadModelo = new Cliente();
     
-    public  CadClienteControle(CadastroClienteJIF frame) {
-        
-        cadModelo.setCod(frame.getCod());
+    public  CadClienteControle(CadClienteJIF frame) {
+        cadModelo.setCodigo(Integer.parseInt( frame.getCod()));
         cadModelo.setNome(frame.getNome());
-        cadModelo.setRg(frame.getRg());
-        cadModelo.setCpf(frame.getCpf());
-        cadModelo.setTelefone(frame.getTelefone());
         cadModelo.setEndereco(frame.getEndereco());
+        cadModelo.setBairro(frame.getBairro());
+        cadModelo.setCidade(frame.getCidade());
+        cadModelo.setEstado(frame.getEstado());
     }
     
     
-    public CadastroClienteModelo getStanceCadmodelo(){
+    public Cliente getStanceCadmodelo(){
         return cadModelo;
     }  
         
     
 }
-*/
